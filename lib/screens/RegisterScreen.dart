@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scholar_chat_app/screens/LoginScreen.dart';
-
+import 'package:scholar_chat_app/Constants/Colors.dart';
 import '../Components/custom_button.dart';
 import '../Components/custom_text_field.dart';
 
@@ -8,55 +7,52 @@ class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register-screen';
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff2B475E),
+      backgroundColor: kPrimaryColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
+        child: ListView(
           children: [
-            Spacer(
-              flex: 2,
-            ),
-            Image.asset('assets/images/scholar.png'),
+            SizedBox(height: size.height / 15,),
+            Image.asset('assets/images/scholar.png',height: 100,),
             Text(
               'Scholar Chat',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 32, color: Colors.white, fontFamily: 'Pacifico'),
             ),
-            Spacer(
-              flex: 2,
-            ),
+            SizedBox(height: size.height / 15,),
             Text(
               'Register',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 22,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 14,
-            ),
+            SizedBox(height: size.height / 50,),
             TextFieldWidget(
               hintText: 'Email',
             ),
             SizedBox(
-              height: 14,
+              height: size.height / 50,
             ),
             TextFieldWidget(
               hintText: 'Password',
             ),
             SizedBox(
-              height: 14,
+              height: size.height / 50,
             ),
             TextFieldWidget(
               hintText: 'Confirm Password',
             ),
             SizedBox(
-              height: 14,
+              height: size.height / 50,
             ),
             ButtonWidget(buttonTxt: 'Register'),
             SizedBox(
-              height: 14,
+              height: size.height / 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,9 +72,6 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Spacer(
-              flex: 3,
-            )
           ],
         ),
       ),

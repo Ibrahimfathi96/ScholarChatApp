@@ -12,7 +12,11 @@ TextFieldWidget({required this.hintText});
         hintText: hintText,
         hintStyle: TextStyle(
           color: Colors.white70,fontSize: 18
-
+        ),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Colors.white
+            )
         ),
         enabledBorder:OutlineInputBorder(
             borderSide: BorderSide(
