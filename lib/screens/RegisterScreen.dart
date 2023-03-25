@@ -69,6 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: size.height / 50,
                 ),
                 TextFormFieldWidget(
+                  isObscured: false,
                   iconData: Icons.email,
                   onChanged: (data) {
                     email = data;
@@ -79,6 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: size.height / 50,
                 ),
                 TextFormFieldWidget(
+                  isObscured: true,
                   iconData: Icons.lock,
                   onChanged: (data) {
                     password = data;
@@ -99,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         DialogUtils.showSnackBarMessage(context,
                             message:
                                 'your account has been successfully created');
-                        Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+                        Navigator.pushReplacementNamed(context, ChatScreen.routeName,arguments: email);
                       } on FirebaseAuthException catch (exception) {
                         if (exception.code == 'weak password') {
                           DialogUtils.showSnackBarMessage(context,

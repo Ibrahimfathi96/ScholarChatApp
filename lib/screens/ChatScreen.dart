@@ -6,14 +6,15 @@ import 'package:scholar_chat_app/models/message_model.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = 'chat-screen';
+  var controller = ScrollController();
   CollectionReference messages =
       FirebaseFirestore.instance.collection(kMessageCollections);
   TextEditingController textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    String email = ModalRoute.of(context)!.settings.arguments as String;
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.snapshots(),
+      stream: messages.orderBy(kCreatedAt,descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Message> messagesList = [];
@@ -50,8 +51,12 @@ class ChatScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                    controller: controller,
                     itemBuilder: (context, index) {
-                      return TextChatBubble(message: messagesList[index],);
+                      return  messagesList[index].id == email? 
+                        SenderChatBubble(message: messagesList[index])
+                        : ReceivedChatBubble(message: messagesList[index],);
                     },
                     itemCount: messagesList.length,
                   ),
@@ -63,8 +68,14 @@ class ChatScreen extends StatelessWidget {
                     onSubmitted: (data) {
                       messages.add({
                         kMessageCollections: data,
+                        kCreatedAt:DateTime.now(),
+                        kId:email
                       });
                       textEditingController.clear();
+                      controller.animateTo(
+                          0,
+                          duration: const Duration(microseconds: 500),
+                          curve: Curves.easeIn);
                     },
                     decoration: InputDecoration(
                       suffixIcon: const Icon(

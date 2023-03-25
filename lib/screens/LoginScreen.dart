@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height / 50,
                 ),
                 TextFormFieldWidget(
+                  isObscured: false,
                   iconData: Icons.email,
                   onChanged: (data) {
                     email = data;
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height / 50,
                 ),
                 TextFormFieldWidget(
+                  isObscured: true,
                   iconData: Icons.lock,
                   onChanged: (data) {
                     password = data;
@@ -93,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           await userSignIn();
                           DialogUtils.showSnackBarMessage(context,
                               message: 'Sign in Successfully');
-                          Navigator.pushReplacementNamed(context, ChatScreen.routeName);
+                          Navigator.pushReplacementNamed(context, ChatScreen.routeName,arguments: email);
                         } on FirebaseAuthException catch (exception) {
                           if (exception.code == 'user-not-found') {
                             DialogUtils.showSnackBarMessage(context,
