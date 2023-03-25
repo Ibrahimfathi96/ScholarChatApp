@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 
-class TextFieldWidget extends StatelessWidget {
+class TextFormFieldWidget extends StatelessWidget {
 String hintText;
+Function(String) onChanged;
+IconData iconData;
 
-TextFieldWidget({required this.hintText});
+TextFormFieldWidget({required this.hintText, required this.onChanged, required this.iconData});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (data){
+        if(data!.isEmpty){
+          return "this field is required";
+        }
+      },
+      style: TextStyle(color: Colors.white,fontSize: 18),
+      onChanged:onChanged ,
       decoration: InputDecoration(
+        prefixIcon: Icon(iconData,color: Colors.white70,),
         hintText: hintText,
         hintStyle: TextStyle(
           color: Colors.white70,fontSize: 18
